@@ -1,0 +1,70 @@
+<section class="hero">
+  <p class="eyebrow">Catalogo</p>
+  <h1>Scopri le serie più popolari</h1>
+  <p class="intro">
+    Esplora il catalogo, salva i tuoi preferiti e trova subito la prossima serie da guardare.
+  </p>
+</section>
+
+@if (caricamento()) {
+  <app-spinner />
+} @else if (errore()) {
+  <p class="errore">{{ errore() }}</p>
+} @else {
+  <section class="toolbar">
+    <p class="risultati">
+      {{ serieOrdinate().length }} serie · Pagina {{ paginaCorrente() }} di {{ totalePagine() }}
+    </p>
+
+    <div class="controlli">
+      <label for="ordinamento">Ordina per</label>
+      <select
+        id="ordinamento"
+        [value]="ordinamento()"
+        (change)="cambiaOrdinamento($any($event.target).value)">
+        <option value="nome">Nome</option>
+        <option value="voto">Voto</option>
+        <option value="anno">Anno</option>
+      </select>
+    </div>
+  </section>
+
+  <div class="griglia">
+    @for (s of seriePaginata(); track s.id; let i = $index) {
+      <app-serie-card
+        [serie]="s"
+        [isPreferito]="isPreferito(s)"
+        [style.--delay]="i"
+        (preferito)="togglePreferito($event)" />
+    }
+  </div>
+
+  @if (totalePagine() > 1) {
+    <nav class="paginazione" aria-label="Paginazione catalogo">
+      <button
+        type="button"
+        (click)="paginaPrecedente()"
+        [disabled]="paginaCorrente() === 1">
+        Precedente
+      </button>
+
+      <div class="numeri">
+        @for (p of pagine(); track p) {
+          <button
+            type="button"
+            [class.attiva]="p === paginaCorrente()"
+            (click)="vaiAPagina(p)">
+            {{ p }}
+          </button>
+        }
+      </div>
+
+      <button
+        type="button"
+        (click)="paginaSuccessiva()"
+        [disabled]="paginaCorrente() === totalePagine()">
+        Successiva
+      </button>
+    </nav>
+  }
+}

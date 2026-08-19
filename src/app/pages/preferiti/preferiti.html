@@ -1,0 +1,38 @@
+<section class="hero">
+  <p class="eyebrow">Preferiti</p>
+  <h1>Le tue serie salvate</h1>
+  <p class="intro">Qui trovi tutte le serie che hai aggiunto ai preferiti.</p>
+</section>
+
+<section class="toolbar">
+  <p class="risultati">{{ preferitiService.totale() }} serie salvate</p>
+
+  <div class="controlli">
+    <label for="ordinamento">Ordina per</label>
+    <select
+      id="ordinamento"
+      [value]="ordinamento()"
+      (change)="cambiaOrdinamento($any($event.target).value)">
+      <option value="nome">Nome</option>
+      <option value="voto">Voto</option>
+      <option value="anno">Anno</option>
+    </select>
+  </div>
+</section>
+
+@if (preferitiService.totale() === 0) {
+  <section class="vuoto">
+    <h2>Nessun preferito salvato</h2>
+    <p>Aggiungi una serie dal catalogo per ritrovarla qui.</p>
+  </section>
+} @else {
+  <div class="griglia">
+    @for (s of preferitiOrdinati(); track s.id; let i = $index) {
+      <app-serie-card
+        [serie]="s"
+        [isPreferito]="isPreferito(s)"
+        [style.--delay]="i"
+        (preferito)="togglePreferito($event)" />
+    }
+  </div>
+}

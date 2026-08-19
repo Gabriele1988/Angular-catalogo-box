@@ -1,0 +1,155 @@
+.griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+
+:host {
+  display: block;
+}
+
+.hero {
+  margin-bottom: 28px;
+  padding: 8px 4px 12px;
+}
+
+.eyebrow {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6e6e73;
+}
+
+.hero h1 {
+  margin: 0 0 10px 0;
+  font-size: 36px;
+  line-height: 1.1;
+  color: #1d1d1f;
+  font-weight: 700;
+}
+
+.intro {
+  margin: 0;
+  max-width: 700px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6e6e73;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.risultati {
+  margin: 0;
+  font-size: 14px;
+  color: #6e6e73;
+}
+
+.griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.paginazione {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.numeri {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.paginazione button {
+  border: none;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.paginazione button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #e9e9ee;
+}
+
+.paginazione button.attiva {
+  background: #1d1d1f;
+  color: white;
+}
+
+.paginazione button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.errore {
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #fff2f2;
+  color: #b42318;
+  font-weight: 600;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.risultati {
+  margin: 0;
+  font-size: 14px;
+  color: #6e6e73;
+}
+
+.controlli {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.controlli label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6e6e73;
+}
+
+.controlli select {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f5f5f7;
+  color: #1d1d1f;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+}
+
+.controlli select:focus {
+  border-color: #1d1d1f;
+}

@@ -1,0 +1,19 @@
+<div class="card">
+    <a [routerLink]="['/serie', serie().id]">
+        @if (serie().image) {
+        <img [src]="serie().image!.original" [alt]="serie().name">
+        } @else {
+        <div class="no-img">Nessuna immagine</div>
+        }
+    </a>
+    <div class="info">
+        <h3>{{ serie().name }}</h3>
+        <p class="meta">{{ anno() }} — {{ generi() }}</p>
+        @if (serie().rating.average) {
+        <p class="voto">Voto: {{ serie().rating.average }}/10</p>
+        }
+        <button (click)="preferito.emit(serie())" [class.attivo]="isPreferito()">
+            {{ isPreferito() ? 'Nei preferiti' : 'Aggiungi ai preferiti' }}
+        </button>
+    </div>
+</div>

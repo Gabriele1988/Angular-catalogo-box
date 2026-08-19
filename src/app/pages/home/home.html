@@ -1,0 +1,94 @@
+<section class="hero-home">
+  <div class="hero-copy">
+    <p class="eyebrow">SeriesHub</p>
+    <h1>Trova la tua prossima serie preferita</h1>
+    <p class="intro">
+      Scopri titoli popolari, salva i preferiti e costruisci la tua raccolta personale
+      in un’interfaccia pulita, veloce e moderna.
+    </p>
+
+    <div class="hero-cta">
+      <a routerLink="/serie" class="btn btn-dark">Esplora il catalogo</a>
+      <a routerLink="/preferiti" class="btn btn-light">Vai ai preferiti</a>
+    </div>
+  </div>
+
+  <div class="hero-panel">
+    <div class="hero-card grande">
+      <span class="label">In evidenza</span>
+      <h2>Serie popolari selezionate</h2>
+      <p>Una raccolta aggiornata per iniziare subito a esplorare i titoli più interessanti.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sezione-link">
+  <article class="mini-box">
+    <p class="mini-label">Catalogo</p>
+    <h3>Esplora tutte le serie</h3>
+    <p>Naviga tra titoli popolari e ordina per nome, voto o anno.</p>
+    <a routerLink="/serie">Apri catalogo</a>
+  </article>
+
+  <article class="mini-box">
+    <p class="mini-label">Preferiti</p>
+    <h3>Salva ciò che ti interessa</h3>
+    <p>Costruisci una raccolta personale sempre disponibile anche dopo il refresh.</p>
+    <a routerLink="/preferiti">Apri preferiti</a>
+  </article>
+
+  <article class="mini-box">
+    <p class="mini-label">Scoperta</p>
+    <h3>Trova subito qualcosa da guardare</h3>
+    <p>Usa la home come punto di partenza per scegliere più rapidamente.</p>
+    <a routerLink="/serie">Inizia ora</a>
+  </article>
+</section>
+
+@if (errore()) {
+  <p class="errore">{{ errore() }}</p>
+} @else if (caricamento()) {
+  <p class="stato">Caricamento home...</p>
+} @else {
+  <section class="contenuto-home">
+    <div class="sezione-head">
+      <div>
+        <p class="eyebrow">Popolari</p>
+        <h2>Serie in evidenza</h2>
+      </div>
+      <a routerLink="/serie" class="link-sezione">Vedi tutto</a>
+    </div>
+
+    <div class="griglia">
+      @for (s of popolariHome(); track s.id; let i = $index) {
+        <app-serie-card
+          [serie]="s"
+          [isPreferito]="isPreferito(s)"
+          [style.--delay]="i"
+          (preferito)="togglePreferito($event)" />
+      }
+    </div>
+  </section>
+
+  @if (preferitiHome().length > 0) {
+    <section class="contenuto-home preferiti-home">
+      <div class="sezione-head">
+        <div>
+          <p class="eyebrow">Preferiti</p>
+          <h2>Le tue serie salvate</h2>
+        </div>
+        <a routerLink="/preferiti" class="link-sezione">Apri preferiti</a>
+      </div>
+
+      <div class="griglia">
+        @for (s of preferitiHome(); track s.id; let i = $index) {
+          <app-serie-card
+            [serie]="s"
+            [isPreferito]="isPreferito(s)"
+            [style.--delay]="i"
+            (preferito)="togglePreferito($event)" />
+        }
+      </div>
+    </section>
+  }
+}

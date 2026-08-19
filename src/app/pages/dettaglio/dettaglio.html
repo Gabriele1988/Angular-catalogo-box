@@ -1,0 +1,115 @@
+@if (caricamento()) {
+  <app-spinner />
+} @else if (errore()) {
+  <p class="errore">{{ errore() }}</p>
+} @else if (serie(); as s) {
+  <section class="hero-dettaglio">
+    <div class="poster-col">
+      @if (s.image?.original) {
+        <img
+          class="poster"
+          [src]="s.image!.original"
+          [alt]="s.name" />
+      } @else {
+        <div class="poster placeholder">Nessuna immagine</div>
+      }
+    </div>
+
+    <div class="info-col">
+      <p class="eyebrow">Serie TV</p>
+      <h1>{{ s.name }}</h1>
+
+      <p class="meta-principale">
+        {{ s.genres.length ? s.genres.join(' • ') : 'Genere non disponibile' }}
+      </p>
+
+      <div class="badges">
+        @if (s.rating?.average != null) {
+          <span class="badge">⭐ {{ s.rating.average }}/10</span>
+        }
+        @if (s.premiered) {
+          <span class="badge">Anno {{ s.premiered | slice:0:4 }}</span>
+        }
+        @if (s.status) {
+          <span class="badge">{{ s.status }}</span>
+        }
+        @if (s.language) {
+          <span class="badge">{{ s.language }}</span>
+        }
+      </div>
+
+      @if (s.summary) {
+        <div class="summary" [innerHTML]="s.summary"></div>
+      } @else {
+        <p class="summary-vuota">Nessuna descrizione disponibile.</p>
+      }
+
+      <div class="azioni">
+        <button type="button" class="btn btn-dark" (click)="togglePreferito()">
+          {{ isPreferito() ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti' }}
+        </button>
+
+        @if (s.officialSite) {
+          <a
+            class="btn btn-light"
+            [href]="s.officialSite"
+            target="_blank"
+            rel="noopener noreferrer">
+            Sito ufficiale
+          </a>
+        }
+
+        <a
+          class="btn btn-light"
+          [href]="s.url"
+          target="_blank"
+          rel="noopener noreferrer">
+          Apri su TVMaze
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-extra">
+    <article class="box-info">
+      <h2>Dettagli</h2>
+      <ul class="lista-info">
+        <li><strong>Lingua:</strong> {{ s.language || 'Non disponibile' }}</li>
+        <li><strong>Stato:</strong> {{ s.status || 'Non disponibile' }}</li>
+        <li><strong>Data uscita:</strong> {{ s.premiered || 'Non disponibile' }}</li>
+        <li><strong>Generi:</strong> {{ s.genres.length ? s.genres.join(', ') : 'Non disponibili' }}</li>
+        <li><strong>Voto:</strong> {{ s.rating?.average ?? 'Non disponibile' }}</li>
+      </ul>
+    </article>
+
+    <article class="box-info">
+      <h2>Cast</h2>
+
+      @if (cast().length > 0) {
+        <div class="cast-grid">
+          @for (attore of cast(); track attore.person.id) {
+            <div class="cast-card">
+              @if (attore.person.image?.medium) {
+                <img
+                  class="cast-img"
+                  [src]="attore.person.image.medium"
+                  [alt]="attore.person.name" />
+              } @else {
+                <div class="cast-img placeholder small">No image</div>
+              }
+
+              <div class="cast-testo">
+                <h3>{{ attore.person.name }}</h3>
+                <p>nel ruolo di {{ attore.character.name }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="vuoto">Nessun cast disponibile.</p>
+      }
+    </article>
+  </section>
+} @else {
+  <p class="errore">Serie non trovata.</p>
+}
