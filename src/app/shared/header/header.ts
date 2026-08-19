@@ -10,4 +10,13 @@ import { PreferitiService } from '../../services/preferiti-service';
 })
 export class Header {
   preferitiService = inject(PreferitiService);
+  menuAperto = false;
+
+  toggleMenu(): void {
+    this.menuAperto = !this.menuAperto;
+  }
+
+  chiudiMenu(): void {
+    this.menuAperto = false;
+  }
 }
