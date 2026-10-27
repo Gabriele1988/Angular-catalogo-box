@@ -2,7 +2,7 @@ import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { Header } from './shared/header/header';
-import { speedInsights } from '../speed-insights';
+import { setSpeedInsightsRoute } from '../speed-insights';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ export class App {
           snap = snap.firstChild;
           if (snap.routeConfig?.path) parts.push(snap.routeConfig.path);
         }
-        speedInsights?.setRoute('/' + parts.join('/'));
+        setSpeedInsightsRoute('/' + parts.join('/'));
       });
   }
 }

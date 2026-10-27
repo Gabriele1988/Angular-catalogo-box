@@ -1,3 +1,11 @@
 import { injectSpeedInsights } from '@vercel/speed-insights';
 
-export const speedInsights = injectSpeedInsights({ route: null });
+let speedInsights: ReturnType<typeof injectSpeedInsights> = null;
+
+export function setSpeedInsightsRoute(route: string) {
+  if (!speedInsights) {
+    speedInsights = injectSpeedInsights({ route });
+  } else {
+    speedInsights.setRoute(route);
+  }
+}
