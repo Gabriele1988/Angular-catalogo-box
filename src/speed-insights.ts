@@ -1,11 +1,7 @@
 import { injectSpeedInsights } from '@vercel/speed-insights';
 
-let speedInsights: ReturnType<typeof injectSpeedInsights> = null;
+const speedInsights = injectSpeedInsights({ route: window.location.pathname });
 
 export function setSpeedInsightsRoute(route: string) {
-  if (!speedInsights) {
-    speedInsights = injectSpeedInsights({ route });
-  } else {
-    speedInsights.setRoute(route);
-  }
+  speedInsights?.setRoute(route);
 }
